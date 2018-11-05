@@ -1,0 +1,829 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Gaussian\_Orbits}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Gaussian Orbits}\label{gaussian-orbits}
+
+In this homework, we will use linear regression methods in order to
+determine the orbits of heavenly bodies.
+
+\subsubsection{Background}\label{background}
+
+In 1801 the minor planet Ceres was first observed for a period of 40
+days before moving behind the sun. To predict the location of Ceres
+astronomers would have to solve complicated non-linear differential
+equations, quite a task in an era before computers or calculators.
+However, Carl Friedrich Gauss had another idea. By single handedly
+developing the theory of least squares and linear regression and
+applying it to the problem of finding Ceres, Gauss managed to accurately
+predict the location of the minor planet nearly a year after it's last
+sighting.
+
+In this problem we likewise attempt to predict the orbit of a "planet"
+and in the process "derive" the formula for an ellipse, the shape of
+orbits of heavenly bodies.
+
+\subsubsection{0. Import a bunch of
+stuff!}\label{import-a-bunch-of-stuff}
+
+Imports needed in this notebook: \texttt{numpy},
+\texttt{matplotlib.pyplot}, from sklearn: \texttt{LinearRegression},
+\texttt{ElasticNet}, and \texttt{mean\_squared\_error}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,} \PY{n}{ElasticNet}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+\end{Verbatim}
+
+
+    \subsubsection{1. Generate Data}\label{generate-data}
+
+The idea here is we generate data in the shape of an ellipse. To do this
+we use the formula of an ellipse in polar coordinates:
+
+\[ r = \frac{ep}{1-e \cos(\theta)} \]
+
+where \$ e \$ is the eccentricity and \$ p \$ is the distance from the
+minor axis to the directrix (read "length"). In addition, we add random
+noise to the data.
+
+We will then try to fit curves to our synthetic dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{k}{def} \PY{n+nf}{gen\PYZus{}data}\PY{p}{(}\PY{n}{e}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{o}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{x}
+             \PY{k}{global} \PY{n}{y}
+             \PY{n}{theta} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{pi}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Ellipse with eccentricity e}
+             \PY{c+c1}{\PYZsh{} Axis \PYZdq{}length\PYZdq{} p}
+             \PY{c+c1}{\PYZsh{} Offset by .5 angularly}
+             \PY{n}{r} \PY{o}{=} \PY{n}{e}\PY{o}{*}\PY{n}{p}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{e}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta} \PY{o}{\PYZhy{}} \PY{n}{o}\PY{p}{)}\PY{p}{)} 
+         
+             \PY{c+c1}{\PYZsh{} transform to cartesian}
+             \PY{n}{x} \PY{o}{=} \PY{n}{r} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{r} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{theta}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Add noise}
+             \PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{20}
+             \PY{n}{y} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{20}
+         
+             \PY{c+c1}{\PYZsh{} plot}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} saving}
+             \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x}\PY{p}{)}
+             \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{gen\PYZus{}data}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{2. Use sklearn's
+LinearRegression}\label{use-sklearns-linearregression}
+
+Try to fit a \texttt{LinearRegression} model to \texttt{x} and
+\texttt{y} (let \$ x \$ be the independent variable and \$ y \$ be the
+dependent variable). Print out the \texttt{mean\_squared\_error} you get
+and plot both \texttt{x}, \texttt{y} (scatter plot), and the predicted
+orbit (line plot).
+
+This is a really dumb idea, please explain:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{prediction} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+         \PY{n}{MSE} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{prediction}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficients: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{model}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+         \PY{n}{prediction}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{MSE}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Coefficients: 
+ [0.10255812]
+0.6533880060911986
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{3. Experimentation time!}\label{experimentation-time}
+
+Try adding new features to your linear model by manipulating \$ x \$!
+For example, try adding a quadratic term, \$ x\^{}2 \$ or a root term
+like \$ \sqrt{x} \$. Print out the MSE of your model and plot both
+\texttt{x}, \texttt{y} (scatter plot), and the predicted orbit (line
+plot). This time, your model should take in an expanded set of features
+and predict \$ y \$.
+
+Hint: \texttt{np.vstack} may be useful here.
+
+This is still a really dumb idea, please explain:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{regTwo} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{x\PYZus{}new}\PY{o}{=}\PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{x\PYZus{}new}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{new\PYZus{}feature} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{x\PYZus{}new}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{new\PYZus{}feature}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{regTwo}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{new\PYZus{}feature}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n}{prediction2} \PY{o}{=} \PY{n}{regTwo}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{new\PYZus{}feature}\PY{p}{)}
+         
+         \PY{n}{MSE} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{prediction2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{MSE}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{new\PYZus{}feature}\PY{p}{,} \PY{n}{prediction2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(200,)
+(200, 1)
+(200, 2)
+0.6470900649248625
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{4. Plane Curves}\label{plane-curves}
+
+As you've probably figured out, the above two methods are pretty crap at
+predicting orbits. What we really need to do is predict a curve in the
+plane. First, let's erase some of the data so what we're doing is
+actually a challenge. Just run the code in the next box:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} Create a mask where x \PYZlt{} 0 or y \PYZlt{} 0}
+         \PY{k}{def} \PY{n+nf}{mask}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{k}{global} \PY{n}{x}
+             \PY{k}{global} \PY{n}{y}
+             
+             \PY{n}{mask} \PY{o}{=} \PY{p}{(}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{n}{y} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{x} \PY{o}{=} \PY{n}{x}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             \PY{n}{y} \PY{o}{=} \PY{n}{y}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{} plot erased data}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{mask}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Now the most general form of a plane curve is
+
+\[ f(x,y) = 0 \]
+
+In order to simplify our lives a bit, let's restrict this to something
+of the form:
+
+\[ ax^2 + bxy + cy^2 + dx + ey + f = 0 \]
+
+You may recognize this as the general form of a conic! Let's take our
+data and try to predict the best possible coefficients here using least
+squares. This way, these coefficients should give the best possible
+approximation to the orbit. Print your predicted coefficients.
+
+Hint: Think about the features you need. (6 total)
+
+Hint: Use the normal equation instead of sklearn.
+
+Hint: This is going to fail, why?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{feature1} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{n}{feature2} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature3} \PY{o}{=} \PY{n}{y}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature4} \PY{o}{=} \PY{n}{x}
+         \PY{n}{feature5} \PY{o}{=} \PY{n}{y} 
+         \PY{n}{feature6} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{feature\PYZus{}all} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{feature1}\PY{p}{,} \PY{n}{feature2}\PY{p}{,} \PY{n}{feature3}\PY{p}{,} \PY{n}{feature4}\PY{p}{,} \PY{n}{feature5}\PY{p}{,} \PY{n}{feature6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{feature\PYZus{}all} \PY{o}{=} \PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}
+         \PY{n}{finalY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{Weight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{feature\PYZus{}all}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{finalY}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Weight}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0. 0. 0. 0. 0. 0.]
+
+    \end{Verbatim}
+
+    \subsubsection{5. Reformulation}\label{reformulation}
+
+The above should fail for a very trivial (pun intended) reason. The
+reason is that if we simply set all the coefficients to zero, we get a
+perfect solution! We can see this in the normal equations:
+
+\[ (A^TA)^{-1} A^T b = x \]
+
+but \$ b = \vec 0 \$ in our case, thus \$ x = \vec 0 \$ trivially.
+
+How do we get around this? One thing we can do is to not have \$ b =
+\vec 0 \$. To do this, let us modify the general form of a plane curve a
+bit:
+
+\[ f(x,y) + 1 = 1 \]
+
+Now our restricted plane curve will be of the form
+
+\[ ax^2 + bxy + cy^2 + dx + ey + f + 1 = 1 \]
+
+Is this just an aesthetic change? or will this actually help? Code it up
+and find out! Plot your model using the handy dandy \texttt{plot\_conic}
+function
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{c+c1}{\PYZsh{} This function should help you plot your ellipses:}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}conic}\PY{p}{(}\PY{n}{coeff}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    params}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{    coeff : array[6] floats}
+         \PY{l+s+sd}{        Array of 6 floats, corresponding to }
+         \PY{l+s+sd}{        a, b, c, d, e, and f respectively}
+         \PY{l+s+sd}{        in the equation above}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{xv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{)}
+             \PY{n}{yv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{)}
+             \PY{n}{xv}\PY{p}{,} \PY{n}{yv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{xv}\PY{p}{,} \PY{n}{yv}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{axes}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{xv}\PY{p}{,} \PY{n}{yv}\PY{p}{,} \PY{n}{xv}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{xv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{yv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{xv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{feature1} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{n}{feature2} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature3} \PY{o}{=} \PY{n}{y}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature4} \PY{o}{=} \PY{n}{x}
+         \PY{n}{feature5} \PY{o}{=} \PY{n}{y} 
+         \PY{n}{feature6} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{feature\PYZus{}all} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{feature1}\PY{p}{,} \PY{n}{feature2}\PY{p}{,} \PY{n}{feature3}\PY{p}{,} \PY{n}{feature4}\PY{p}{,} \PY{n}{feature5}\PY{p}{,} \PY{n}{feature6}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{feature\PYZus{}all} \PY{o}{=} \PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}
+         \PY{n}{finalY} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{Weight} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{feature\PYZus{}all}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{feature\PYZus{}all}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{finalY}\PY{p}{)}
+         \PY{n}{Weight}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{n}{Weight}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Weight}\PY{p}{)}
+         \PY{n}{plot\PYZus{}conic}\PY{p}{(}\PY{n}{Weight}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 1.02695630e-14 -4.75591788e-14 -7.10542736e-15  3.88578059e-15
+  5.16253706e-15 -5.10702591e-15]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{6. Ridge}\label{ridge}
+
+So, reformulating the problem might have worked, but more than likely it
+didn't work too well. Here's some code to generate new data. Try running
+the above model multiple times on different data. More than likely most
+of them will look terrible.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} Regenerate data}
+         \PY{n}{gen\PYZus{}data}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The problem here is that our method is too unstable. It turns out the
+Ridge Regression as a regularizer can reduce numerical instability and
+constrain under-constrained problems. Try rewriting the regression from
+above using ridge regression and see how well it does. Plot out the
+model using \texttt{plot\_conic}. Compare the results with the previous
+method.
+
+Hint: Use the \texttt{regenerate\ data} block to try new data
+
+Hint: There is really only one extra term between this question and the
+previous
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{Ridge}
+         
+         \PY{n}{model1} \PY{o}{=} \PY{n}{Ridge}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{model1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{p}{,} \PY{n}{finalY}\PY{p}{)}
+         
+         \PY{n}{coefficients} \PY{o}{=} \PY{n}{model1}\PY{o}{.}\PY{n}{coef\PYZus{}}
+         \PY{n}{coefficients}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{coefficients}\PY{p}{)}
+         
+         \PY{n}{plot\PYZus{}conic}\PY{p}{(}\PY{n}{coefficients}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ 0.15825885 -0.046782    0.18388308 -0.17515677 -0.09603506 -0.20461966]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{7. "Deriving" an Ellipse}\label{deriving-an-ellipse}
+
+LASSO regularization is a \emph{sparse feature selector} in the sense
+that it zeros out "useless" features and keeps relevant features. It's a
+good way to reduce the number of features you have to use.
+
+In this case we're going to pretend we don't know what form the equation
+of an ellipse takes. We can add random monomials to form a guess:
+
+\[ ax^2 + bxy + cy^2 + dx + ey + f + gx^3 + hy^3 + jx^2y + \cdots + 1 = 1 \]
+
+The idea here is that if we use LASSO regression on the above equation,
+the terms irrelevant to an ellipse will "zero out" and the quadratic and
+lower terms won't! Try this out, and print out the coefficients. No
+gurantees this will works 100\% :), but you should find that all
+coefficients greater than quadratic zero out.
+
+\texttt{Hint}: We want to keep the ridge regularization to maintain
+numerical stabilitiy. So we need a combined Ridge and LASSO regression.
+For some reason, this model is called \texttt{ElasticNet} from sklearn.
+Use that model.
+
+\texttt{Hint}: You might have to play around with the parameters a bit.
+I used these \texttt{l1\_ratio=.23,\ alpha=.01} to produce some pretty
+good results
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{ElasticNet}
+         
+         \PY{n}{model5} \PY{o}{=} \PY{n}{ElasticNet}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,}\PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{23}\PY{p}{,}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{feature1} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{n}{feature2} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature3} \PY{o}{=} \PY{n}{y}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature4} \PY{o}{=} \PY{n}{x}
+         \PY{n}{feature5} \PY{o}{=} \PY{n}{y} 
+         \PY{n}{feature6} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{feature7} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{x}
+         \PY{n}{feature8} \PY{o}{=} \PY{n}{y}\PY{o}{*}\PY{n}{y}\PY{o}{*}\PY{n}{y}
+         \PY{n}{feature9} \PY{o}{=} \PY{n}{x}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{n}{y}
+         
+         \PY{n}{features\PYZus{}everything} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{(}\PY{n}{feature\PYZus{}all}\PY{p}{,}\PY{n}{feature7}\PY{p}{,} \PY{n}{feature8}\PY{p}{,} \PY{n}{feature9}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{y\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{features\PYZus{}everything}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{model5}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}everything}\PY{p}{,}\PY{n}{y\PYZus{}values}\PY{p}{)}
+         
+         \PY{n}{coefficients} \PY{o}{=} \PY{n}{model5}\PY{o}{.}\PY{n}{coef\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-91-bbd068db5c40> in <module>()
+         13 feature9 = x*x*y
+         14 
+    ---> 15 features\_everything = np.vstack((feature\_all,feature7, feature8, feature9))
+         16 
+         17 y\_values = np.ones(features\_everything.shape[0])
+
+
+        /anaconda3/lib/python3.6/site-packages/numpy/core/shape\_base.py in vstack(tup)
+        232 
+        233     """
+    --> 234     return \_nx.concatenate([atleast\_2d(\_m) for \_m in tup], 0)
+        235 
+        236 def hstack(tup):
+
+
+        ValueError: all the input array dimensions except for the concatenation axis must match exactly
+
+    \end{Verbatim}
+
+    \subsubsection{8. Evaluate this model!}\label{evaluate-this-model}
+
+Run this code block below. This code block assumes that you have an
+array called \texttt{coeff} which has 10 elements.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{xv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{yv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{)}
+         \PY{n}{xv}\PY{p}{,} \PY{n}{yv} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{xv}\PY{p}{,} \PY{n}{yv}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{axes}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{axes}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{contour}\PY{p}{(}\PY{n}{xv}\PY{p}{,} \PY{n}{yv}\PY{p}{,} \PY{n}{xv}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{xv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{yv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{n}{xv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{n}{yv}\PY{o}{*}\PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{xv} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{yv} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{yv} \PY{o}{+} \PY{n}{coeff}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{o}{*}\PY{n}{xv}\PY{o}{*}\PY{n}{yv}\PY{o}{*}\PY{n}{yv} \PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-92-3118d0d00c68> in <module>()
+          8 
+          9 axes()
+    ---> 10 plt.contour(xv, yv, xv*xv*coeff[0] + xv*yv*coeff[1] + yv*yv*coeff[2] + xv*coeff[3] + yv*coeff[4] + coeff[5] - 1 + coeff[6]*xv*xv*xv + coeff[7]*yv*yv*yv + coeff[8]*xv*xv*yv + coeff[9]*xv*yv*yv , [0], colors='k')
+         11 plt.scatter(x,y)
+         12 plt.show()
+
+
+        NameError: name 'coeff' is not defined
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{9. Poisoned Data}\label{poisoned-data}
+
+New problem. Scenario: You want to buy a house from a realtor, and you
+know that the realtor uses a linear regression model to price their
+houses. You hack into the realtor's comptuer and are allowed to add a
+single data point to their training set. Add this data point to the
+training set such that a linear model would predict the first row to
+have a value of 5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{boston} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{boston.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{boston}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{y} \PY{o}{=} \PY{n}{boston}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} Code here}
+\end{Verbatim}
+
+
+    What you've done here is to "poison" a dataset. Essentially messing with
+the training data to mess with the final model. There are of course many
+ways to prevent this from happening. Eliminating outliers is one
+possible method. But there are also many other possible methods to
+poison a dataset. This idea is very similar to the idea of
+\texttt{adversarial\ examples}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
